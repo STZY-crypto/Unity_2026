@@ -1,0 +1,35 @@
+using UnityEngine;
+
+public class Set2 : MonoBehaviour
+{
+    Color ourColor;
+    string ourText;
+
+    void Start()
+    {
+        ourColor = Color.white;
+        ourText = "Default";
+    }
+
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            Debug.Log("Green");
+            ourColor = Color.green;
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Debug.Log("Red");
+            ourColor = Color.red;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("ourText");
+            gameObject.GetComponent<Renderer>().material.color = ourColor;
+        }
+    }
+}
