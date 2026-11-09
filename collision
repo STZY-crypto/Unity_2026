@@ -1,0 +1,36 @@
+using UnityEngine;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
+
+public class PlayerC : MonoBehaviour
+{
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+  
+public float moveSpeed=5f;
+private Rigidbody rb;
+private Vector3 movement;
+void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+    void Update()
+    {
+        float horizontal = 0f;
+        float vertical = 0f;
+        if (Input.GetKey(KeyCode.W)) vertical = 1f;
+        if (Input.GetKey(KeyCode.S)) vertical = -1f;
+        if (Input.GetKey(KeyCode.A)) horizontal = -1f;
+        if (Input.GetKey(KeyCode.D)) horizontal = 1f;
+        movement = new Vector3(horizontal, 0f, vertical).normalized;
+    }
+    void FixedUpdate()
+    {
+        Vector3 newPosition = rb.position +
+        movement * moveSpeed * Time.fixedDeltaTime;
+        rb.MovePosition(newPosition);
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        collision.gameObject.GetComponent<Renderer>().material.color = Color.red;
+    }
+
+}
