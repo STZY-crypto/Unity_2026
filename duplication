@@ -1,0 +1,53 @@
+using UnityEngine;
+
+    public class ObjectGridSpawner : MonoBehaviour
+{   [Header("Grid Settings")]
+    public GameObject prefab;
+   
+    public int rows = 5;
+    public int columns = 5;
+    public float spacing = 2f;
+
+    public float R = 0.5f;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+         CreateGrid();
+    }
+
+     void CreateGrid()
+    {
+        for (int row = 0; row < rows; row++)
+        {
+            for (int col = 0; col < columns; col++)
+            {
+                CreateObject(row, col);
+            }
+        }
+    }
+     void CreateObject(int row, int col)
+    {
+        Vector3 position = CalculatePosition(row, col);
+
+        GameObject newObject = Instantiate(
+            prefab,
+            position,
+            Quaternion.identity
+        );
+
+        newObject.name = "Clone" + row.ToString("00") + col.ToString("00");
+    }
+      Vector3 CalculatePosition(int row, int col)
+    {
+        float randomX = Random.Range(-R, R);
+        float randomY = Random.Range(-R, R);
+        float randomZ = Random.Range(-R, R);
+
+        float x = col * spacing + randomX;
+        float y = randomY;
+        float z = row * spacing + randomZ;
+
+        return transform.position + new Vector3(x, y, z);
+    }
+}
